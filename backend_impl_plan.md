@@ -108,10 +108,6 @@
 - [script/build.ts](script/build.ts) の `viteBuild()` 前後で生成する（どちらでも可。Vite build 前でも問題ない）。
 - prod の `/api/showcase/*` は生成済み JSON を返す。
 
-### Step 5: 設定（サブディレクトリ選択）
-- 設定は「base directory を変える」のではなく、`showcase/pages` 配下などの **サブディレクトリ指定**のみを許可。
-- UI/設定値はフィルタとして解釈し、tree/manifest 取得後にサーバまたはクライアントでフィルタする。
-
 ## 8. テスト方針
 - ユニット: manifest 生成（拡張子フィルタ、ツリー化、id生成、publicUrl/moduleKey生成）。
 - API: `/api/health`, `/api/showcase/manifest`。
