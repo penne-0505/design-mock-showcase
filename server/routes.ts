@@ -1,16 +1,42 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { type Server } from "http";
+import { getShowcaseManifest, getShowcaseTree } from "./showcase";
 
 export async function registerRoutes(
-  httpServer: Server,
-  app: Express
+	httpServer: Server,
+	app: Express
 ): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
+	app.get("/api/health", (_req, res) => {
+		res.json({ status: "ok" });
+	});
 
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+	app.get("/api/showcase/tree", async (_req, res, next) => {
+		try {
+			const tree = await getShowcaseTree();
+			res.json(tree);
+		} catch (error) {
+			const status = (error as any)?.status ?? (error as any)?.statusCode;
+			if (status === 404) {
+				res.status(404).json({ message: (error as Error).message });
+				return;
+			}
+			next(error);
+		}
+	});
 
-  return httpServer;
+	app.get("/api/showcase/manifest", async (_req, res, next) => {
+		try {
+			const manifest = await getShowcaseManifest();
+			res.json(manifest);
+		} catch (error) {
+			const status = (error as any)?.status ?? (error as any)?.statusCode;
+			if (status === 404) {
+				res.status(404).json({ message: (error as Error).message });
+				return;
+			}
+			next(error);
+		}
+	});
+
+	return httpServer;
 }
