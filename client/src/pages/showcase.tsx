@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
 import { ShowcaseTabs } from "@/components/ShowcaseTabs";
@@ -12,11 +12,6 @@ import { ComponentPreview } from "@/components/ComponentPreview";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import type { ShowcaseEntry, ShowcaseTreeResponse } from "@shared/showcase";
-
-const showcaseModules = {
-	...import.meta.glob("/src/showcase/pages/**/*.{tsx,jsx}"),
-	...import.meta.glob("/src/showcase/components/**/*.{tsx,jsx}"),
-};
 
 const PAGES_DIR_LABEL = "client/src/showcase/pages";
 const COMPONENTS_DIR_LABEL = "client/src/showcase/components";
@@ -37,9 +32,6 @@ function flattenTree(items: FileTreeItem[]): FileTreeItem[] {
 export default function Showcase() {
 	const [activeTab, setActiveTab] = useState<"pages" | "components">("pages");
 	const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null);
-	const [previewNode, setPreviewNode] = useState<React.ReactNode>(null);
-	const [previewError, setPreviewError] = useState<string | null>(null);
-	const [previewLoading, setPreviewLoading] = useState(false);
 
 	const { data: treeData, isLoading: treeLoading } =
 		useQuery<ShowcaseTreeResponse>({
@@ -76,54 +68,6 @@ export default function Showcase() {
 
 	const selectedEntryPath = selectedEntry?.sourcePath;
 
-	useEffect(() => {
-		if (!selectedEntry || selectedEntry.format === "html") {
-			setPreviewNode(null);
-			setPreviewError(null);
-			setPreviewLoading(false);
-			return;
-		}
-
-		const loader = selectedEntry.moduleKey
-			? showcaseModules[selectedEntry.moduleKey]
-			: undefined;
-
-		if (!loader) {
-			setPreviewNode(null);
-			setPreviewError("Preview module not found.");
-			return;
-		}
-
-		let cancelled = false;
-		setPreviewLoading(true);
-		setPreviewError(null);
-
-		loader()
-			.then((mod) => {
-				if (cancelled) return;
-				const Component = mod.default as React.ComponentType | undefined;
-				if (!Component) {
-					throw new Error("Default export not found.");
-				}
-				setPreviewNode(<Component />);
-			})
-			.catch((err: unknown) => {
-				if (cancelled) return;
-				const message =
-					err instanceof Error ? err.message : "Failed to load preview.";
-				setPreviewError(message);
-				setPreviewNode(null);
-			})
-			.finally(() => {
-				if (cancelled) return;
-				setPreviewLoading(false);
-			});
-
-		return () => {
-			cancelled = true;
-		};
-	}, [selectedEntry]);
-
 	const renderPreviewContent = () => {
 		if (!selectedEntry) return null;
 
@@ -143,24 +87,14 @@ export default function Showcase() {
 			);
 		}
 
-		if (previewLoading) {
-			return <LoadingState message="Loading preview..." />;
-		}
-
-		if (previewError) {
-			return (
-				<div className="text-sm text-destructive" data-testid="preview-error">
-					{previewError}
-				</div>
-			);
-		}
-
 		return (
-			previewNode ?? (
-				<div className="text-sm text-muted-foreground">
-					Preview is not available.
-				</div>
-			)
+			<div className="rounded-md border bg-muted/30 overflow-hidden min-h-[480px]">
+				<iframe
+					src={`/preview/${selectedEntry.id}`}
+					title={selectedEntry.name}
+					className="w-full h-full min-h-[480px] bg-background"
+				/>
+			</div>
 		);
 	};
 

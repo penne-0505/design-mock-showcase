@@ -5,25 +5,27 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Showcase from "@/pages/showcase";
+import Preview from "@/pages/preview";
 
 function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Showcase} />
-      <Route component={NotFound} />
-    </Switch>
-  );
+	return (
+		<Switch>
+			<Route path="/" component={Showcase} />
+			<Route path="/preview/:id" component={Preview} />
+			<Route component={NotFound} />
+		</Switch>
+	);
 }
 
 function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
+	return (
+		<QueryClientProvider client={queryClient}>
+			<TooltipProvider>
+				<Toaster />
+				<Router />
+			</TooltipProvider>
+		</QueryClientProvider>
+	);
 }
 
 export default App;
