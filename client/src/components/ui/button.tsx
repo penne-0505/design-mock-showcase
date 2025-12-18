@@ -3,6 +3,7 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0" +
@@ -45,15 +46,60 @@ export interface ButtonProps
   asChild?: boolean
 }
 
+const extractTextFromNode = (node: React.ReactNode): string => {
+  let text = ""
+
+  React.Children.forEach(node, (child) => {
+    if (typeof child === "string" || typeof child === "number") {
+      text += child.toString()
+      return
+    }
+
+    if (React.isValidElement(child)) {
+      const ariaHidden = child.props?.["aria-hidden"]
+      if (ariaHidden === true || ariaHidden === "true") return
+      text += extractTextFromNode(child.props?.children)
+    }
+  })
+
+  return text
+}
+
+const normalizeHint = (value: unknown): string | null => {
+  if (typeof value === "string" || typeof value === "number") {
+    const text = String(value).trim()
+    return text.length > 0 ? text : null
+  }
+  return null
+}
+
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, title, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
-    return (
+    const dataHint = normalizeHint(props["data-hint"])
+    const ariaLabel = normalizeHint(props["aria-label"])
+    const childHint = normalizeHint(extractTextFromNode(props.children))
+    const hintText = dataHint ?? normalizeHint(title) ?? ariaLabel ?? childHint
+    const useTooltip = Boolean(hintText)
+
+    const button = (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        title={useTooltip ? undefined : title}
         {...props}
       />
+    )
+
+    if (!useTooltip) {
+      return button
+    }
+
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>{button}</TooltipTrigger>
+        <TooltipContent>{hintText}</TooltipContent>
+      </Tooltip>
     )
   },
 )
