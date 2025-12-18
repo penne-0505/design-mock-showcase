@@ -38,10 +38,6 @@ export default function PagePreviewExample() {
         path="pages/landing.tsx"
         content={<SamplePageContent />}
         onBack={() => console.log("Back clicked")}
-        breadcrumbItems={[
-          { label: "Pages", onClick: () => console.log("Pages") },
-          { label: "Landing Page Brief" },
-        ]}
       />
     </div>
   );

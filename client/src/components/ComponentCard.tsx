@@ -7,15 +7,23 @@ export interface ComponentCardProps {
   path: string;
   preview?: React.ReactNode;
   onClick: () => void;
+  menu?: React.ReactNode;
 }
 
-export function ComponentCard({ name, path, preview, onClick }: ComponentCardProps) {
+export function ComponentCard({
+  name,
+  path,
+  preview,
+  onClick,
+  menu,
+}: ComponentCardProps) {
   return (
     <Card
-      className="cursor-pointer hover-elevate active-elevate-2 transition-colors overflow-hidden"
+      className="relative cursor-pointer hover-elevate active-elevate-2 transition-colors overflow-hidden"
       onClick={onClick}
       data-testid={`component-card-${name}`}
     >
+      {menu && <div className="absolute right-3 top-3 z-10">{menu}</div>}
       <div className="bg-muted/50 p-6 min-h-[120px] flex items-center justify-center border-b">
         {preview || (
           <div className="flex flex-col items-center gap-2 text-muted-foreground">

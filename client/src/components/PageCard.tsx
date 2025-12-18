@@ -7,15 +7,23 @@ export interface PageCardProps {
   path: string;
   lastModified?: string;
   onClick: () => void;
+  menu?: React.ReactNode;
 }
 
-export function PageCard({ name, path, lastModified, onClick }: PageCardProps) {
+export function PageCard({
+  name,
+  path,
+  lastModified,
+  onClick,
+  menu,
+}: PageCardProps) {
   return (
     <Card
-      className="cursor-pointer hover-elevate active-elevate-2 transition-colors"
+      className="relative cursor-pointer hover-elevate active-elevate-2 transition-colors"
       onClick={onClick}
       data-testid={`page-card-${name}`}
     >
+      {menu && <div className="absolute right-3 top-3">{menu}</div>}
       <CardContent className="pt-6">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-md bg-muted">

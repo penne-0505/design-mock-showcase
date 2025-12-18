@@ -17,11 +17,6 @@ export default function ComponentPreviewExample() {
           </div>
         }
         onBack={() => console.log("Back clicked")}
-        breadcrumbItems={[
-          { label: "Components", onClick: () => console.log("Components") },
-          { label: "ui", onClick: () => console.log("ui") },
-          { label: "Button" },
-        ]}
       />
     </div>
   );

@@ -7,6 +7,8 @@ interface FileTreeProps {
 	items: FileTreeItem[];
 	selectedPath?: string;
 	onSelect: (item: FileTreeItem) => void;
+	onMove?: (sourcePath: string, targetDir: string) => void;
+	rootPath?: string;
 	level?: number;
 }
 
@@ -14,16 +16,39 @@ export function FileTree({
 	items,
 	selectedPath,
 	onSelect,
+	onMove,
+	rootPath,
 	level = 0,
 }: FileTreeProps) {
+	const handleRootDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+		if (!onMove || !rootPath || level !== 0) return;
+		event.preventDefault();
+		event.dataTransfer.dropEffect = "move";
+	};
+
+	const handleRootDrop = (event: React.DragEvent<HTMLDivElement>) => {
+		if (!onMove || !rootPath || level !== 0) return;
+		event.preventDefault();
+		const sourcePath =
+			event.dataTransfer.getData("application/x-showcase-path") ||
+			event.dataTransfer.getData("text/plain");
+		if (!sourcePath) return;
+		onMove(sourcePath, rootPath);
+	};
+
 	return (
-		<div className="space-y-0.5">
+		<div
+			className="space-y-0.5"
+			onDragOver={handleRootDragOver}
+			onDrop={handleRootDrop}
+		>
 			{items.map((item) => (
 				<FileTreeNode
 					key={item.id}
 					item={item}
 					selectedPath={selectedPath}
 					onSelect={onSelect}
+					onMove={onMove}
 					level={level}
 				/>
 			))}
@@ -37,6 +62,7 @@ interface FileTreeNodeProps {
 	item: FileTreeItem;
 	selectedPath?: string;
 	onSelect: (item: FileTreeItem) => void;
+	onMove?: (sourcePath: string, targetDir: string) => void;
 	level: number;
 }
 
@@ -44,9 +70,11 @@ function FileTreeNode({
 	item,
 	selectedPath,
 	onSelect,
+	onMove,
 	level,
 }: FileTreeNodeProps) {
 	const [isOpen, setIsOpen] = useState(true);
+	const [isDragOver, setIsDragOver] = useState(false);
 	const isSelected = selectedPath === item.path;
 	const hasChildren = item.children && item.children.length > 0;
 
@@ -58,14 +86,52 @@ function FileTreeNode({
 		}
 	};
 
+	const handleDragStart = (event: React.DragEvent<HTMLButtonElement>) => {
+		if (item.type !== "file" || !onMove) return;
+		event.dataTransfer.effectAllowed = "move";
+		event.dataTransfer.setData("application/x-showcase-path", item.path);
+		event.dataTransfer.setData("text/plain", item.path);
+	};
+
+	const handleDragOver = (event: React.DragEvent<HTMLButtonElement>) => {
+		if (item.type !== "folder" || !onMove) return;
+		event.preventDefault();
+		event.stopPropagation();
+		event.dataTransfer.dropEffect = "move";
+		setIsDragOver(true);
+	};
+
+	const handleDragLeave = () => {
+		if (item.type !== "folder" || !onMove) return;
+		setIsDragOver(false);
+	};
+
+	const handleDrop = (event: React.DragEvent<HTMLButtonElement>) => {
+		if (item.type !== "folder" || !onMove) return;
+		event.preventDefault();
+		event.stopPropagation();
+		setIsDragOver(false);
+		const sourcePath =
+			event.dataTransfer.getData("application/x-showcase-path") ||
+			event.dataTransfer.getData("text/plain");
+		if (!sourcePath) return;
+		onMove(sourcePath, item.path);
+	};
+
 	return (
 		<div>
 			<button
 				onClick={handleClick}
+				draggable={item.type === "file" && Boolean(onMove)}
+				onDragStart={handleDragStart}
+				onDragOver={handleDragOver}
+				onDragLeave={handleDragLeave}
+				onDrop={handleDrop}
 				className={cn(
 					"flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-sm transition-colors hover-elevate active-elevate-2",
 					isSelected && "bg-sidebar-accent text-sidebar-accent-foreground",
-					!isSelected && "text-sidebar-foreground"
+					!isSelected && "text-sidebar-foreground",
+					isDragOver && "ring-2 ring-primary/40"
 				)}
 				style={{ paddingLeft: `${level * 16 + 8}px` }}
 				data-testid={`file-tree-item-${item.id}`}
