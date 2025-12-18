@@ -44,7 +44,6 @@ Common patterns: p-4, p-6, p-8, gap-4, gap-6, space-y-8
 ### A. Navigation & Tabs
 **Primary Navigation:**
 - Top bar: Full-width, h-16, sticky, includes app title and configuration access
-- Breadcrumb trail below tabs for deep navigation context
 
 **Tab System:**
 - Horizontal tabs (Pages | Components) centered or left-aligned
@@ -76,7 +75,7 @@ Common patterns: p-4, p-6, p-8, gap-4, gap-6, space-y-8
 **Full Page View (Design Brief):**
 - Centered content column: max-w-4xl for optimal reading
 - Generous vertical spacing: py-12
-- Breadcrumb navigation at top
+- Back button sits to the left of filename/path in the header
 - JSX renders with full fidelity
 
 ### D. Configuration Panel
@@ -102,7 +101,7 @@ Common patterns: p-4, p-6, p-8, gap-4, gap-6, space-y-8
 - cube: Components
 - cog-6-tooth: Settings/configuration
 - chevron-right, chevron-down: Tree navigation
-- home: Breadcrumb home
+- arrow-left: Back navigation
 
 ## Interaction Patterns
 
@@ -110,7 +109,7 @@ Common patterns: p-4, p-6, p-8, gap-4, gap-6, space-y-8
 1. Land on showcase homepage with tabs defaulting to "Pages"
 2. Click tab to switch between Pages/Components
 3. Click card/item to view full detail
-4. Breadcrumb or back button returns to showcase grid
+4. Back button returns to showcase grid
 
 **File Discovery Indication:**
 - Auto-refresh when files added (if possible)
