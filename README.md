@@ -1,3 +1,69 @@
-Get started by customizing your environment (defined in the .idx/dev.nix file) with the tools and IDE extensions you'll need for your project!
+# Design Mock Showcase
 
-Learn more at https://developers.google.com/idx/guides/customize-idx-env
+デザインモックやコンポーネントを効率的に管理・閲覧・プレビューするための開発者向けショーケースツールです。
+
+## 🚀 主な機能
+
+- **自動スキャン & ツリー表示**: `showcase/` ディレクトリ内の JSX, TSX, HTML ファイルを自動的にスキャンし、サイドバーにツリー形式で表示します。
+- **ライブプレビュー**: 選択したコンポーネントやページを即座にプレビューできます。
+- **ファイル管理**: UI上からファイルの名称変更、削除、移動、および新しいディレクトリの作成が可能です。
+- **テーマ切り替え**: ダークモードとライトモードに対応しており、デザインの確認に最適です。
+- **デザインガイドライン**: 組み込みのデザインガイドラインに基づいた、一貫性のあるクリーンなインターフェースを提供します。
+
+## 🛠 技術スタック
+
+### フロントエンド
+- **React** & **Vite**: 高速な開発体験と実行パフォーマンス。
+- **Tailwind CSS**: 柔軟なスタイリング。
+- **shadcn/ui**: 高品質なUIコンポーネント。
+- **Wouter**: 軽量なルーティング。
+- **TanStack Query**: 効率的なデータフェッチとキャッシュ管理。
+
+### バックエンド
+- **Express**: シンプルで拡張性の高いAPIサーバー。
+- **Node.js**: サーバーサイド実行環境。
+
+## 📦 プロジェクト構成
+
+```text
+.
+├── client/          # フロントエンド（React）ソースコード
+├── server/          # バックエンド（Express）ソースコード
+├── shared/          # フロントエンドとバックエンドで共有する型定義・ロジック
+├── showcase/        # ショーケース対象のファイル（pages, components）
+├── public/          # 静的アセット
+└── script/          # ビルド・ユーティリティスクリプト
+```
+
+## 🏁 はじめかた
+
+### 1. 依存関係のインストール
+
+```bash
+npm install
+```
+
+### 2. 開発サーバーの起動
+
+```bash
+npm run dev
+```
+
+サーバーが起動すると、デフォルトで `http://localhost:5000` でアクセス可能になります。
+
+### 3. ビルド
+
+```bash
+npm run build
+```
+
+## 📖 使い方
+
+1. `showcase/pages/` または `showcase/components/` ディレクトリに `.jsx`, `.tsx`, `.html` ファイルを配置します。
+2. ブラウザでアプリケーションを開くと、配置したファイルが自動的にリストアップされます。
+3. サイドバーからファイルを選択してプレビューを確認します。
+4. ヘッダーの「設定」アイコンから、ファイルのリロードやテーマの変更が可能です。
+
+## 📝 ライセンス
+
+MIT
