@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
+import path from "path";
 
 const app = express();
 const httpServer = createServer(app);
@@ -21,6 +22,9 @@ app.use(
 );
 
 app.use(express.urlencoded({ extended: false }));
+
+const showcaseStaticRoot = path.resolve(import.meta.dirname, "..", "showcase");
+app.use("/showcase", express.static(showcaseStaticRoot));
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -67,7 +71,9 @@ app.use((req, res, next) => {
     const message = err.message || "Internal Server Error";
 
     res.status(status).json({ message });
-    throw err;
+    if (process.env.NODE_ENV !== "production") {
+      console.error(err);
+    }
   });
 
   // importantly only setup vite in development and after
@@ -85,14 +91,18 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || "5000", 10);
+  const host = "0.0.0.0";
+  const displayHost = host === "0.0.0.0" ? "localhost" : host;
+
   httpServer.listen(
     {
       port,
-      host: "0.0.0.0",
+      host,
       reusePort: true,
     },
     () => {
       log(`serving on port ${port}`);
+      log(`app running at http://${displayHost}:${port}`);
     },
   );
 })();
