@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Server 🍀 - あの頃のような、穏やかな日々を。</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-bg: #fdfcf8;
+            --color-text: #2c3e35;
+            --color-accent: #7a9e7e;
+            --color-accent-dark: #58755c;
+            --color-secondary: #e6e2d6;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Zen Maru Gothic', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Shippori Mincho', serif;
+        }
+
+        /* Noise Texture Overlay for Nostalgic Feel */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .image-parallax {
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Image Masking for softer edges */
+        .soft-image {
+            mask-image: radial-gradient(white 80%, transparent 100%);
+            -webkit-mask-image: radial-gradient(white 80%, transparent 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Button Hover Effect */
+        .btn-hover-effect {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .btn-hover-effect:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 20px -10px rgba(122, 158, 126, 0.5);
+        }
+
+        /* Text selection color */
+        ::selection {
+            background: #d4e0d6; /* Very light green */
+            color: #2c3e35;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Texture Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 px-6 py-6 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-card rounded-full px-6 py-3">
+            <a href="#" class="text-xl font-bold tracking-widest text-[#58755c] serif flex items-center gap-2">
+                <i data-lucide="clover" class="w-5 h-5"></i>
+                <span>Server 🍀</span>
+            </a>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
+                <a href="#concept" class="hover:text-[#58755c] transition-colors">コンセプト</a>
+                <a href="#memories" class="hover:text-[#58755c] transition-colors">アルバム</a>
+                <a href="#features" class="hover:text-[#58755c] transition-colors">特徴</a>
+            </div>
+            <a href="#join" class="bg-[#2c3e35] text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider hover:bg-[#58755c] transition-colors flex items-center gap-2">
+                <i data-lucide="message-circle" class="w-3 h-3"></i>
+                DISCORD
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+            <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#e8f0e9] rounded-full blur-[100px] opacity-60 animate-pulse" style="animation-duration: 10s;"></div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#f0ebe0] rounded-full blur-[80px] opacity-60"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto text-center px-6 relative z-10">
+            <div class="fade-in-up delay-100 mb-6 flex justify-center">
+                <span class="px-4 py-1 rounded-full border border-[#7a9e7e] text-[#58755c] text-xs tracking-widest bg-white/50 backdrop-blur-sm">COMMUNITY SERVER</span>
+            </div>
+            <h1 class="fade-in-up delay-200 text-5xl md:text-7xl lg:text-8xl font-medium leading-tight serif text-[#2c3e35] mb-8">
+                帰る場所がある、<br>
+                という<span class="italic text-[#7a9e7e]">贅沢</span>。
+            </h1>
+            <p class="fade-in-up delay-300 text-sm md:text-base leading-relaxed text-gray-600 max-w-lg mx-auto mb-12 font-light">
+                終わりのない冒険もいいけれど、<br>
+                本当に探していたのは、<br>
+                夕暮れ時に「ただいま」と言える場所かもしれません。
+            </p>
+            <div class="fade-in-up delay-400">
+                 <a href="#join" class="btn-hover-effect inline-flex items-center gap-3 bg-[#2c3e35] text-[#fdfcf8] px-8 py-4 rounded-full text-sm font-bold tracking-widest shadow-lg">
+                    <span>コミュニティに参加する</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Floating Abstract Screenshot Placeholders -->
+        <div class="absolute top-1/4 left-[5%] w-32 h-40 md:w-48 md:h-64 bg-gray-200 rounded-lg shadow-xl -rotate-6 opacity-80 fade-in-up delay-500 overflow-hidden hidden md:block">
+             <div class="w-full h-full bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-700" style="background-image: url('https://images.unsplash.com/photo-1587582423116-ec07293f0395?q=80&w=2070&auto=format&fit=crop');"></div>
+        </div>
+        <div class="absolute bottom-1/4 right-[5%] w-40 h-32 md:w-64 md:h-48 bg-gray-200 rounded-lg shadow-xl rotate-3 opacity-80 fade-in-up delay-700 overflow-hidden hidden md:block">
+            <div class="w-full h-full bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-700" style="background-image: url('https://images.unsplash.com/photo-1629814596131-0969d74c05a1?q=80&w=2070&auto=format&fit=crop');"></div>
+        </div>
+    </header>
+
+    <!-- Narrative Section -->
+    <section id="concept" class="py-24 md:py-32 px-6 relative">
+        <div class="max-w-2xl mx-auto">
+            <div class="border-l-2 border-[#7a9e7e]/30 pl-8 md:pl-12 py-4 fade-in-up">
+                <h2 class="text-2xl md:text-3xl serif leading-relaxed mb-8 text-[#2c3e35]">
+                    ここは、ゲームサーバーであって<br>
+                    ゲームサーバーではありません。
+                </h2>
+                <p class="text-gray-600 leading-8 mb-6 text-justify">
+                    効率を求める採掘も、エンドコンテンツの攻略も、ここでは少し脇に置いておきましょう。私たちが大切にしているのは、建築物の完成度よりも、それを建てている時の会話です。
+                </p>
+                <p class="text-gray-600 leading-8 text-justify">
+                    Minecraft Server 🍀は、Discordを中心としたコミュニティです。
+                    ログインしていない時間でも、日常の些細な出来事を共有し合える。
+                    そんな「デジタルの焚き火」のような場所を目指しています。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / Memories Section -->
+    <section id="memories" class="py-20 bg-[#f4f1ea] relative overflow-hidden">
+        <!-- Decorative bg text -->
+        <div class="absolute top-10 left-10 text-[10rem] font-bold text-[#e8e4db] serif opacity-30 select-none pointer-events-none z-0">
+            Memory
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex justify-between items-end mb-16 fade-in-up">
+                <div>
+                    <h3 class="text-xs font-bold tracking-[0.2em] text-[#7a9e7e] mb-2 uppercase">Gallery</h3>
+                    <h2 class="text-3xl md:text-4xl serif text-[#2c3e35]">積み重なる、思い出たち</h2>
+                </div>
+                <p class="hidden md:block text-xs text-gray-500 max-w-xs text-right leading-relaxed">
+                    ユーザーが作り上げた風景。<br>
+                    すべてのブロックに物語があります。
+                </p>
+            </div>
+
+            <!-- Masonry-style Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                <!-- Col 1 -->
+                <div class="space-y-8 md:space-y-12 mt-0 md:mt-12">
+                    <div class="fade-in-up group cursor-pointer">
+                        <div class="relative overflow-hidden rounded-sm shadow-lg aspect-[3/4]">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1607988795691-3d0147b43231?q=80&w=2070&auto=format&fit=crop" alt="Landscape" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <!-- Overlay UI Mockup -->
+                            <div class="absolute bottom-4 left-4 z-20 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <p class="serif text-lg">静寂の湖畔</p>
+                                <p class="text-xs font-light opacity-80">2024.10.12 / Photo by Member</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="fade-in-up group cursor-pointer delay-100">
+                         <p class="text-xs text-gray-500 mb-2 font-mono">#CommunityEvent</p>
+                        <div class="relative overflow-hidden rounded-sm shadow-md aspect-square bg-white p-2">
+                             <div class="w-full h-full relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1502209930985-e1104e12e132?q=80&w=2070&auto=format&fit=crop" alt="Gathering" class="w-full h-full object-cover filter sepia-[.3] group-hover:sepia-0 transition-all duration-500">
+                            </div>
+                        </div>
+                         <p class="mt-3 text-sm serif text-gray-700">週末のピクニック広場にて。</p>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div class="space-y-8 md:space-y-12">
+                    <div class="fade-in-up group cursor-pointer delay-150">
+                        <div class="relative overflow-hidden rounded-sm shadow-lg aspect-[4/3]">
+                            <img src="https://images.unsplash.com/photo-1627856013091-fed8e495a0e3?q=80&w=2070&auto=format&fit=crop" alt="Night view" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                    </div>
+                    <div class="fade-in-up bg-white p-8 rounded-sm shadow-sm border border-[#e6e2d6] delay-200">
+                        <i data-lucide="quote" class="w-6 h-6 text-[#7a9e7e] mb-4 opacity-50"></i>
+                        <p class="serif text-lg leading-relaxed text-[#2c3e35] mb-4">
+                            「ただログインして、誰かが作った道を歩くだけで癒やされる。そんな場所です。」
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-gray-200"></div>
+                            <span class="text-xs font-bold text-gray-400">Regular Member</span>
+                        </div>
+                    </div>
+                     <div class="fade-in-up group cursor-pointer delay-250">
+                        <div class="relative overflow-hidden rounded-sm shadow-lg aspect-[3/4]">
+                            <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2072&auto=format&fit=crop" alt="Nature" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col 3 -->
+                <div class="space-y-8 md:space-y-12 mt-0 md:mt-24">
+                     <div class="fade-in-up group cursor-pointer delay-300">
+                        <div class="relative overflow-hidden rounded-sm shadow-lg aspect-square">
+                            <img src="https://images.unsplash.com/photo-1481595357464-83991319725d?q=80&w=2070&auto=format&fit=crop" alt="Home" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <p class="mt-3 text-right text-xs serif text-gray-400 italic">Home sweet home.</p>
+                    </div>
+                    <div class="fade-in-up group cursor-pointer delay-350">
+                        <div class="relative overflow-hidden rounded-sm shadow-lg aspect-[3/5]">
+                            <img src="https://images.unsplash.com/photo-1549488497-6a5676a0846e?q=80&w=2070&auto=format&fit=crop" alt="Structure" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 grayscale-[0.2]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Philosophy Section -->
+    <section id="features" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="fade-in-up group p-8 rounded-2xl bg-[#fdfcf8] border border-[#f0ebe0] hover:border-[#7a9e7e] transition-colors duration-500">
+                    <div class="w-12 h-12 rounded-full bg-[#e8f0e9] flex items-center justify-center text-[#58755c] mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="coffee" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="serif text-xl mb-3 text-[#2c3e35]">余白のある生活</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        ノルマも、強制イベントもありません。ログイン頻度を気にする必要もありません。あなたのペースが、サーバーのペースです。
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="fade-in-up delay-100 group p-8 rounded-2xl bg-[#fdfcf8] border border-[#f0ebe0] hover:border-[#7a9e7e] transition-colors duration-500">
+                    <div class="w-12 h-12 rounded-full bg-[#e8f0e9] flex items-center justify-center text-[#58755c] mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="serif text-xl mb-3 text-[#2c3e35]">Discord中心の繋がり</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        ゲーム内のチャットよりも、Discordでの通話やテキストチャットが活発です。別のゲームをしていても、ただそこにいる心地よさを。
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="fade-in-up delay-200 group p-8 rounded-2xl bg-[#fdfcf8] border border-[#f0ebe0] hover:border-[#7a9e7e] transition-colors duration-500">
+                    <div class="w-12 h-12 rounded-full bg-[#e8f0e9] flex items-center justify-center text-[#58755c] mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="serif text-xl mb-3 text-[#2c3e35]">穏やかさを守る</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        ホワイトリスト制を採用しています。治安の良さと、心理的安全性を何よりも優先しています。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="join" class="py-32 px-6 relative overflow-hidden bg-[#2c3e35] text-[#fdfcf8]">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <div class="fade-in-up">
+                <i data-lucide="clover" class="w-12 h-12 mx-auto mb-6 text-[#7a9e7e]"></i>
+                <h2 class="text-3xl md:text-5xl serif mb-8 leading-tight">
+                    新しいページを、<br>ご一緒に。
+                </h2>
+                <p class="text-[#b0c4b4] mb-12 font-light leading-relaxed">
+                    まずはDiscordに参加して、サーバーの雰囲気を感じてみてください。<br>
+                    挨拶は「こんにちは」だけで十分です。
+                </p>
+                
+                <a href="#" class="group relative inline-flex items-center justify-center px-8 py-4 bg-[#fdfcf8] text-[#2c3e35] rounded-full font-bold tracking-wider overflow-hidden transition-transform active:scale-95">
+                    <span class="absolute inset-0 w-full h-full bg-[#7a9e7e] origin-left transform scale-x-0 transition-transform duration-500 group-hover:scale-x-100"></span>
+                    <span class="relative flex items-center gap-3 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        Discordに参加する
+                    </span>
+                </a>
+                
+                <p class="mt-8 text-xs text-[#b0c4b4] opacity-60">
+                    ※ 参加にはDiscordアカウントが必要です。<br>
+                    ※ 現在、Java版 / 統合版 両方に対応しています。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#25332c] text-[#8a9e91] py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="serif text-lg text-[#fdfcf8]">Minecraft Server 🍀</span>
+            </div>
+            <div class="text-xs font-light">
+                &copy; 2024 Minecraft Server Clover. All rights reserved.
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors text-xs">ルール</a>
+                <a href="#" class="hover:text-white transition-colors text-xs">お問い合わせ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Trigger once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero shapes
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.absolute.rounded-full');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (0.5 - x) * speed;
+                const yOffset = (0.5 - y) * speed;
+                shape.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.add('py-6');
+                nav.classList.remove('py-2');
+            }
+        });
+    </script>
+</body>
+</html>
