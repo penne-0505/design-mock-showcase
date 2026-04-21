@@ -1,0 +1,236 @@
+[
+  {
+    "id": "showcase/pages/llm_evalution/gemini-3-p-w-skill.tsx",
+    "name": "gemini-3-p-w-skill",
+    "kind": "page",
+    "format": "tsx",
+    "sourcePath": "showcase/pages/llm_evalution/gemini-3-p-w-skill.tsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/gemini-3-p-w-skill.tsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/llm_evalution/opus_w_skill.jsx",
+    "name": "opus_w_skill",
+    "kind": "page",
+    "format": "jsx",
+    "sourcePath": "showcase/pages/llm_evalution/opus_w_skill.jsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/opus_w_skill.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/llm_evalution/sonnet_w_skill.jsx",
+    "name": "sonnet_w_skill",
+    "kind": "page",
+    "format": "jsx",
+    "sourcePath": "showcase/pages/llm_evalution/sonnet_w_skill.jsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/sonnet_w_skill.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/llm_evalution/tenbin/gemini_3_f.tsx",
+    "name": "gemini_3_f",
+    "kind": "page",
+    "format": "tsx",
+    "sourcePath": "showcase/pages/llm_evalution/tenbin/gemini_3_f.tsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/tenbin/gemini_3_f.tsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/llm_evalution/tenbin/gemini_3_p.tsx",
+    "name": "gemini_3_p",
+    "kind": "page",
+    "format": "tsx",
+    "sourcePath": "showcase/pages/llm_evalution/tenbin/gemini_3_p.tsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/tenbin/gemini_3_p.tsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/llm_evalution/tenbin/gpt_52.tsx",
+    "name": "gpt_52",
+    "kind": "page",
+    "format": "tsx",
+    "sourcePath": "showcase/pages/llm_evalution/tenbin/gpt_52.tsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/tenbin/gpt_52.tsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/llm_evalution/tenbin/opus_46_2.tsx",
+    "name": "opus_46_2",
+    "kind": "page",
+    "format": "tsx",
+    "sourcePath": "showcase/pages/llm_evalution/tenbin/opus_46_2.tsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/tenbin/opus_46_2.tsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/llm_evalution/tenbin/opus.tsx",
+    "name": "opus",
+    "kind": "page",
+    "format": "tsx",
+    "sourcePath": "showcase/pages/llm_evalution/tenbin/opus.tsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/tenbin/opus.tsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/llm_evalution/tenbin/sonnet_45.tsx",
+    "name": "sonnet_45",
+    "kind": "page",
+    "format": "tsx",
+    "sourcePath": "showcase/pages/llm_evalution/tenbin/sonnet_45.tsx",
+    "moduleKey": "../../../showcase/pages/llm_evalution/tenbin/sonnet_45.tsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/mock_6.jsx",
+    "name": "mock_6",
+    "kind": "page",
+    "format": "jsx",
+    "sourcePath": "showcase/pages/mock_6.jsx",
+    "moduleKey": "../../../showcase/pages/mock_6.jsx",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  },
+  {
+    "id": "showcase/pages/mock_temp/mock_3.jsx",
+    "name": "mock_3",
+    "kind": "page",
+    "format": "jsx",
+    "sourcePath": "showcase/pages/mock_temp/mock_3.jsx",
+    "moduleKey": "../../../showcase/pages/mock_temp/mock_3.jsx",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  },
+  {
+    "id": "showcase/pages/mock_temp/mock_5.jsx",
+    "name": "mock_5",
+    "kind": "page",
+    "format": "jsx",
+    "sourcePath": "showcase/pages/mock_temp/mock_5.jsx",
+    "moduleKey": "../../../showcase/pages/mock_temp/mock_5.jsx",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  },
+  {
+    "id": "showcase/pages/mock.jsx",
+    "name": "mock",
+    "kind": "page",
+    "format": "jsx",
+    "sourcePath": "showcase/pages/mock.jsx",
+    "moduleKey": "../../../showcase/pages/mock.jsx",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  },
+  {
+    "id": "showcase/pages/portfolio_1.jsx",
+    "name": "portfolio_1",
+    "kind": "page",
+    "format": "jsx",
+    "sourcePath": "showcase/pages/portfolio_1.jsx",
+    "moduleKey": "../../../showcase/pages/portfolio_1.jsx",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  },
+  {
+    "id": "showcase/pages/temp.jsx",
+    "name": "temp",
+    "kind": "page",
+    "format": "jsx",
+    "sourcePath": "showcase/pages/temp.jsx",
+    "moduleKey": "../../../showcase/pages/temp.jsx",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  },
+  {
+    "id": "showcase/components/CommunityGoalWidget.jsx",
+    "name": "CommunityGoalWidget",
+    "kind": "component",
+    "format": "jsx",
+    "sourcePath": "showcase/components/CommunityGoalWidget.jsx",
+    "moduleKey": "../../../showcase/components/CommunityGoalWidget.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/components/DiscordMemberListMock.jsx",
+    "name": "DiscordMemberListMock",
+    "kind": "component",
+    "format": "jsx",
+    "sourcePath": "showcase/components/DiscordMemberListMock.jsx",
+    "moduleKey": "../../../showcase/components/DiscordMemberListMock.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/components/Divider.jsx",
+    "name": "Divider",
+    "kind": "component",
+    "format": "jsx",
+    "sourcePath": "showcase/components/Divider.jsx",
+    "moduleKey": "../../../showcase/components/Divider.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/components/FAQItem.jsx",
+    "name": "FAQItem",
+    "kind": "component",
+    "format": "jsx",
+    "sourcePath": "showcase/components/FAQItem.jsx",
+    "moduleKey": "../../../showcase/components/FAQItem.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/components/FooterLink.jsx",
+    "name": "FooterLink",
+    "kind": "component",
+    "format": "jsx",
+    "sourcePath": "showcase/components/FooterLink.jsx",
+    "moduleKey": "../../../showcase/components/FooterLink.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/components/InteractiveClover.jsx",
+    "name": "InteractiveClover",
+    "kind": "component",
+    "format": "jsx",
+    "sourcePath": "showcase/components/InteractiveClover.jsx",
+    "moduleKey": "../../../showcase/components/InteractiveClover.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/components/PricingComponent.jsx",
+    "name": "PricingComponent",
+    "kind": "component",
+    "format": "jsx",
+    "sourcePath": "showcase/components/PricingComponent.jsx",
+    "moduleKey": "../../../showcase/components/PricingComponent.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/components/SupporterTicker.jsx",
+    "name": "SupporterTicker",
+    "kind": "component",
+    "format": "jsx",
+    "sourcePath": "showcase/components/SupporterTicker.jsx",
+    "moduleKey": "../../../showcase/components/SupporterTicker.jsx",
+    "lastModified": "2026-04-21T02:50:56.004Z"
+  },
+  {
+    "id": "showcase/pages/mock_2.html",
+    "name": "mock_2",
+    "kind": "page",
+    "format": "html",
+    "sourcePath": "showcase/pages/mock_2.html",
+    "publicUrl": "/showcase/pages/mock_2.html",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  },
+  {
+    "id": "showcase/pages/mock_4.html",
+    "name": "mock_4",
+    "kind": "page",
+    "format": "html",
+    "sourcePath": "showcase/pages/mock_4.html",
+    "publicUrl": "/showcase/pages/mock_4.html",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  },
+  {
+    "id": "showcase/pages/mock_7.html",
+    "name": "mock_7",
+    "kind": "page",
+    "format": "html",
+    "sourcePath": "showcase/pages/mock_7.html",
+    "publicUrl": "/showcase/pages/mock_7.html",
+    "lastModified": "2026-04-21T02:50:56.005Z"
+  }
+]

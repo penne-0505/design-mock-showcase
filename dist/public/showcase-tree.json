@@ -1,0 +1,264 @@
+{
+  "pages": [
+    {
+      "id": "showcase/pages/llm_evalution",
+      "name": "llm_evalution",
+      "type": "folder",
+      "path": "showcase/pages/llm_evalution",
+      "children": [
+        {
+          "id": "showcase/pages/llm_evalution/tenbin",
+          "name": "tenbin",
+          "type": "folder",
+          "path": "showcase/pages/llm_evalution/tenbin",
+          "children": [
+            {
+              "id": "showcase/pages/llm_evalution/tenbin/gemini_3_f.tsx",
+              "name": "gemini_3_f",
+              "type": "file",
+              "path": "showcase/pages/llm_evalution/tenbin/gemini_3_f.tsx",
+              "format": "tsx",
+              "kind": "page",
+              "lastModified": "2026-04-21T02:50:56.004Z"
+            },
+            {
+              "id": "showcase/pages/llm_evalution/tenbin/gemini_3_p.tsx",
+              "name": "gemini_3_p",
+              "type": "file",
+              "path": "showcase/pages/llm_evalution/tenbin/gemini_3_p.tsx",
+              "format": "tsx",
+              "kind": "page",
+              "lastModified": "2026-04-21T02:50:56.004Z"
+            },
+            {
+              "id": "showcase/pages/llm_evalution/tenbin/gpt_52.tsx",
+              "name": "gpt_52",
+              "type": "file",
+              "path": "showcase/pages/llm_evalution/tenbin/gpt_52.tsx",
+              "format": "tsx",
+              "kind": "page",
+              "lastModified": "2026-04-21T02:50:56.004Z"
+            },
+            {
+              "id": "showcase/pages/llm_evalution/tenbin/opus_46_2.tsx",
+              "name": "opus_46_2",
+              "type": "file",
+              "path": "showcase/pages/llm_evalution/tenbin/opus_46_2.tsx",
+              "format": "tsx",
+              "kind": "page",
+              "lastModified": "2026-04-21T02:50:56.004Z"
+            },
+            {
+              "id": "showcase/pages/llm_evalution/tenbin/opus.tsx",
+              "name": "opus",
+              "type": "file",
+              "path": "showcase/pages/llm_evalution/tenbin/opus.tsx",
+              "format": "tsx",
+              "kind": "page",
+              "lastModified": "2026-04-21T02:50:56.004Z"
+            },
+            {
+              "id": "showcase/pages/llm_evalution/tenbin/sonnet_45.tsx",
+              "name": "sonnet_45",
+              "type": "file",
+              "path": "showcase/pages/llm_evalution/tenbin/sonnet_45.tsx",
+              "format": "tsx",
+              "kind": "page",
+              "lastModified": "2026-04-21T02:50:56.004Z"
+            }
+          ]
+        },
+        {
+          "id": "showcase/pages/llm_evalution/gemini-3-p-w-skill.tsx",
+          "name": "gemini-3-p-w-skill",
+          "type": "file",
+          "path": "showcase/pages/llm_evalution/gemini-3-p-w-skill.tsx",
+          "format": "tsx",
+          "kind": "page",
+          "lastModified": "2026-04-21T02:50:56.004Z"
+        },
+        {
+          "id": "showcase/pages/llm_evalution/opus_w_skill.jsx",
+          "name": "opus_w_skill",
+          "type": "file",
+          "path": "showcase/pages/llm_evalution/opus_w_skill.jsx",
+          "format": "jsx",
+          "kind": "page",
+          "lastModified": "2026-04-21T02:50:56.004Z"
+        },
+        {
+          "id": "showcase/pages/llm_evalution/sonnet_w_skill.jsx",
+          "name": "sonnet_w_skill",
+          "type": "file",
+          "path": "showcase/pages/llm_evalution/sonnet_w_skill.jsx",
+          "format": "jsx",
+          "kind": "page",
+          "lastModified": "2026-04-21T02:50:56.004Z"
+        }
+      ]
+    },
+    {
+      "id": "showcase/pages/mock_temp",
+      "name": "mock_temp",
+      "type": "folder",
+      "path": "showcase/pages/mock_temp",
+      "children": [
+        {
+          "id": "showcase/pages/mock_temp/mock_3.jsx",
+          "name": "mock_3",
+          "type": "file",
+          "path": "showcase/pages/mock_temp/mock_3.jsx",
+          "format": "jsx",
+          "kind": "page",
+          "lastModified": "2026-04-21T02:50:56.005Z"
+        },
+        {
+          "id": "showcase/pages/mock_temp/mock_5.jsx",
+          "name": "mock_5",
+          "type": "file",
+          "path": "showcase/pages/mock_temp/mock_5.jsx",
+          "format": "jsx",
+          "kind": "page",
+          "lastModified": "2026-04-21T02:50:56.005Z"
+        }
+      ]
+    },
+    {
+      "id": "showcase/pages/mock_6.jsx",
+      "name": "mock_6",
+      "type": "file",
+      "path": "showcase/pages/mock_6.jsx",
+      "format": "jsx",
+      "kind": "page",
+      "lastModified": "2026-04-21T02:50:56.005Z"
+    },
+    {
+      "id": "showcase/pages/mock.jsx",
+      "name": "mock",
+      "type": "file",
+      "path": "showcase/pages/mock.jsx",
+      "format": "jsx",
+      "kind": "page",
+      "lastModified": "2026-04-21T02:50:56.005Z"
+    },
+    {
+      "id": "showcase/pages/portfolio_1.jsx",
+      "name": "portfolio_1",
+      "type": "file",
+      "path": "showcase/pages/portfolio_1.jsx",
+      "format": "jsx",
+      "kind": "page",
+      "lastModified": "2026-04-21T02:50:56.005Z"
+    },
+    {
+      "id": "showcase/pages/temp.jsx",
+      "name": "temp",
+      "type": "file",
+      "path": "showcase/pages/temp.jsx",
+      "format": "jsx",
+      "kind": "page",
+      "lastModified": "2026-04-21T02:50:56.005Z"
+    },
+    {
+      "id": "showcase/pages/mock_2.html",
+      "name": "mock_2",
+      "type": "file",
+      "path": "showcase/pages/mock_2.html",
+      "format": "html",
+      "kind": "page",
+      "lastModified": "2026-04-21T02:50:56.005Z"
+    },
+    {
+      "id": "showcase/pages/mock_4.html",
+      "name": "mock_4",
+      "type": "file",
+      "path": "showcase/pages/mock_4.html",
+      "format": "html",
+      "kind": "page",
+      "lastModified": "2026-04-21T02:50:56.005Z"
+    },
+    {
+      "id": "showcase/pages/mock_7.html",
+      "name": "mock_7",
+      "type": "file",
+      "path": "showcase/pages/mock_7.html",
+      "format": "html",
+      "kind": "page",
+      "lastModified": "2026-04-21T02:50:56.005Z"
+    }
+  ],
+  "components": [
+    {
+      "id": "showcase/components/CommunityGoalWidget.jsx",
+      "name": "CommunityGoalWidget",
+      "type": "file",
+      "path": "showcase/components/CommunityGoalWidget.jsx",
+      "format": "jsx",
+      "kind": "component",
+      "lastModified": "2026-04-21T02:50:56.004Z"
+    },
+    {
+      "id": "showcase/components/DiscordMemberListMock.jsx",
+      "name": "DiscordMemberListMock",
+      "type": "file",
+      "path": "showcase/components/DiscordMemberListMock.jsx",
+      "format": "jsx",
+      "kind": "component",
+      "lastModified": "2026-04-21T02:50:56.004Z"
+    },
+    {
+      "id": "showcase/components/Divider.jsx",
+      "name": "Divider",
+      "type": "file",
+      "path": "showcase/components/Divider.jsx",
+      "format": "jsx",
+      "kind": "component",
+      "lastModified": "2026-04-21T02:50:56.004Z"
+    },
+    {
+      "id": "showcase/components/FAQItem.jsx",
+      "name": "FAQItem",
+      "type": "file",
+      "path": "showcase/components/FAQItem.jsx",
+      "format": "jsx",
+      "kind": "component",
+      "lastModified": "2026-04-21T02:50:56.004Z"
+    },
+    {
+      "id": "showcase/components/FooterLink.jsx",
+      "name": "FooterLink",
+      "type": "file",
+      "path": "showcase/components/FooterLink.jsx",
+      "format": "jsx",
+      "kind": "component",
+      "lastModified": "2026-04-21T02:50:56.004Z"
+    },
+    {
+      "id": "showcase/components/InteractiveClover.jsx",
+      "name": "InteractiveClover",
+      "type": "file",
+      "path": "showcase/components/InteractiveClover.jsx",
+      "format": "jsx",
+      "kind": "component",
+      "lastModified": "2026-04-21T02:50:56.004Z"
+    },
+    {
+      "id": "showcase/components/PricingComponent.jsx",
+      "name": "PricingComponent",
+      "type": "file",
+      "path": "showcase/components/PricingComponent.jsx",
+      "format": "jsx",
+      "kind": "component",
+      "lastModified": "2026-04-21T02:50:56.004Z"
+    },
+    {
+      "id": "showcase/components/SupporterTicker.jsx",
+      "name": "SupporterTicker",
+      "type": "file",
+      "path": "showcase/components/SupporterTicker.jsx",
+      "format": "jsx",
+      "kind": "component",
+      "lastModified": "2026-04-21T02:50:56.004Z"
+    }
+  ]
+}
