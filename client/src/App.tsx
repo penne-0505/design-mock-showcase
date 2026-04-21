@@ -7,7 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Showcase from "@/pages/showcase";
 import Preview from "@/pages/preview";
-import { applyTheme, getPreferredTheme } from "@/lib/theme";
+import { initializeTheme } from "@/lib/theme";
 
 function Router() {
 	return (
@@ -21,7 +21,7 @@ function Router() {
 
 function App() {
 	useEffect(() => {
-		applyTheme(getPreferredTheme());
+		initializeTheme();
 	}, []);
 
 	return (

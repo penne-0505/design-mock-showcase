@@ -1,23 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
-import { applyTheme, getPreferredTheme, persistTheme } from "@/lib/theme";
+import { getPreferredTheme, setTheme, type Theme } from "@/lib/theme";
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const preferred = getPreferredTheme();
-    setIsDark(preferred === "dark");
-    applyTheme(preferred);
-  }, []);
+  const [theme, setThemeState] = useState<Theme>(() => getPreferredTheme());
+  const isDark = theme === "dark";
 
   const toggle = () => {
-    const next = !isDark;
-    setIsDark(next);
-    const nextTheme = next ? "dark" : "light";
-    applyTheme(nextTheme);
-    persistTheme(nextTheme);
+    const nextTheme: Theme = isDark ? "light" : "dark";
+    setTheme(nextTheme);
+    setThemeState(nextTheme);
   };
 
   return (

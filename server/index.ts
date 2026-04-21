@@ -23,7 +23,7 @@ app.use(
 
 app.use(express.urlencoded({ extended: false }));
 
-const showcaseStaticRoot = path.resolve(import.meta.dirname, "..", "showcase");
+const showcaseStaticRoot = path.resolve(process.cwd(), "showcase");
 app.use("/showcase", express.static(showcaseStaticRoot));
 
 export function log(message: string, source = "express") {

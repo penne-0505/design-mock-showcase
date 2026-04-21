@@ -9,7 +9,7 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: "latest",
 		sourceType: "module",
-		project: "./tsconfig.json",
+		project: "./tsconfig.eslint.json",
 	},
 	plugins: ["@typescript-eslint", "react", "react-hooks"],
 	extends: [
@@ -29,6 +29,7 @@ module.exports = {
 		"node_modules/",
 		".idx/",
 		"client/public/",
+		"showcase/",
 	],
 	rules: {
 		"react/react-in-jsx-scope": "off",

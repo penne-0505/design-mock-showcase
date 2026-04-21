@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "client/src/**/*",
+    "shared/**/*",
+    "server/**/*",
+    "script/**/*",
+    "constants/**/*",
+    "tests/**/*",
+    "vite.config.ts",
+    "tailwind.config.ts",
+    "drizzle.config.ts",
+    "postcss.config.js"
+  ],
+  "compilerOptions": {
+    "allowJs": true
+  },
+  "exclude": []
+}

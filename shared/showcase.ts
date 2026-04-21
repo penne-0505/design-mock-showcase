@@ -26,7 +26,6 @@ export interface ShowcaseEntry {
 export interface ShowcaseTreeResponse {
 	pages: FileTreeItem[];
 	components: FileTreeItem[];
-	htmlPages?: FileTreeItem[];
 }
 
 export type ShowcaseManifestResponse = ShowcaseEntry[];

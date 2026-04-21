@@ -20,3 +20,14 @@ export function persistTheme(theme: Theme) {
 	if (typeof window === "undefined") return;
 	window.localStorage.setItem("theme", theme);
 }
+
+export function initializeTheme(): Theme {
+	const theme = getPreferredTheme();
+	applyTheme(theme);
+	return theme;
+}
+
+export function setTheme(theme: Theme) {
+	applyTheme(theme);
+	persistTheme(theme);
+}

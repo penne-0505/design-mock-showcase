@@ -44,6 +44,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  "data-hint"?: string
 }
 
 const extractTextFromNode = (node: React.ReactNode): string => {

@@ -1,38 +1,14 @@
-import React, { useMemo, useState } from "react";
-import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
 import { Header } from "@/components/Header";
 import { ShowcaseTabs } from "@/components/ShowcaseTabs";
 import { PageCard } from "@/components/PageCard";
 import { ComponentCard } from "@/components/ComponentCard";
-import { FileTree, FileTreeItem } from "@/components/FileTree";
+import { FileTree } from "@/components/FileTree";
 import { EmptyState } from "@/components/EmptyState";
 import { LoadingState } from "@/components/LoadingState";
-import { PagePreview } from "@/components/PagePreview";
-import { ComponentPreview } from "@/components/ComponentPreview";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-} from "@/components/ui/dialog";
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -40,33 +16,21 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { apiRequest } from "@/lib/queryClient";
+import { ShowcaseDetailView } from "@/features/showcase/components/ShowcaseDetailView";
+import { ShowcaseDialogs } from "@/features/showcase/components/ShowcaseDialogs";
+import {
+	COMPONENTS_DIR_LABEL,
+	COMPONENTS_ROOT_PATH,
+	PAGES_DIR_LABEL,
+	PAGES_ROOT_PATH,
+	type ShowcaseTab,
+} from "@/features/showcase/constants";
+import { useShowcaseActions } from "@/features/showcase/hooks/useShowcaseActions";
+import { useShowcaseData } from "@/features/showcase/hooks/useShowcaseData";
 import { FolderPlus, MoreVertical, Pencil, Trash2 } from "lucide-react";
-import type { ShowcaseEntry, ShowcaseTreeResponse } from "@shared/showcase";
-
-const PAGES_DIR_LABEL = "./showcase/pages";
-const COMPONENTS_DIR_LABEL = "./showcase/components";
-const TREE_QUERY_KEY = ["/api/showcase/tree"];
-const MANIFEST_QUERY_KEY = ["/api/showcase/manifest"];
-
-function flattenTree(items: FileTreeItem[]): FileTreeItem[] {
-	const result: FileTreeItem[] = [];
-	for (const item of items) {
-		if (item.type === "file") {
-			result.push(item);
-		}
-		if (item.children) {
-			result.push(...flattenTree(item.children));
-		}
-	}
-	return result;
-}
-
 export default function Showcase() {
-	const [activeTab, setActiveTab] = useState<"pages" | "components">("pages");
+	const [activeTab, setActiveTab] = useState<ShowcaseTab>("pages");
 	const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null);
-	const queryClient = useQueryClient();
-	const { toast } = useToast();
 	const [renameOpen, setRenameOpen] = useState(false);
 	const [renameValue, setRenameValue] = useState("");
 	const [deleteOpen, setDeleteOpen] = useState(false);
@@ -75,216 +39,47 @@ export default function Showcase() {
 	const [createDirName, setCreateDirName] = useState("");
 	const [creatingDir, setCreatingDir] = useState(false);
 
-	const { data: rawTreeData, isLoading: treeLoading } =
-		useQuery<ShowcaseTreeResponse>({
-			queryKey: TREE_QUERY_KEY,
-			placeholderData: { pages: [], components: [], htmlPages: [] },
-		});
+	const {
+		activeEntry,
+		componentsTree,
+		flatComponents,
+		flatPages,
+		isReloading,
+		manifestById,
+		manifestLoading,
+		pagesTree,
+		refetchShowcase,
+		selectedEntry,
+		selectedEntryPath,
+		treeLoading,
+	} = useShowcaseData(selectedEntryId, actionEntryId);
 
-	const { data: manifestData, isLoading: manifestLoading } = useQuery<
-		ShowcaseEntry[]
-	>({
-		queryKey: MANIFEST_QUERY_KEY,
+	const {
+		handleCreateDirectory,
+		handleDelete,
+		handleMoveFile,
+		handleReload,
+		handleRename,
+		openDeleteFor,
+		openRenameFor,
+	} = useShowcaseActions({
+		activeEntry,
+		activeTab,
+		actionEntryId,
+		createDirName,
+		refetchShowcase,
+		renameValue,
+		selectedEntry,
+		selectedEntryId,
+		setActionEntryId,
+		setCreateDirName,
+		setCreateDirOpen,
+		setCreatingDir,
+		setDeleteOpen,
+		setRenameOpen,
+		setRenameValue,
+		setSelectedEntryId,
 	});
-	const treeFetching = useIsFetching({ queryKey: TREE_QUERY_KEY });
-	const manifestFetching = useIsFetching({ queryKey: MANIFEST_QUERY_KEY });
-	const isReloading = treeFetching > 0 || manifestFetching > 0;
-
-	const handleReload = async (options?: { silent?: boolean }) => {
-		await Promise.all([
-			queryClient.refetchQueries({ queryKey: TREE_QUERY_KEY }),
-			queryClient.refetchQueries({ queryKey: MANIFEST_QUERY_KEY }),
-		]);
-		if (!options?.silent) {
-			toast({
-				variant: "success",
-				title: "リロードが完了しました",
-			});
-		}
-	};
-
-	const manifestById = useMemo(() => {
-		const map = new Map<string, ShowcaseEntry>();
-		manifestData?.forEach((entry) => map.set(entry.id, entry));
-		return map;
-	}, [manifestData]);
-
-	const treeData = rawTreeData ?? { pages: [], components: [], htmlPages: [] };
-	const pagesList = Array.isArray(treeData.pages) ? treeData.pages : [];
-	const htmlPagesList = Array.isArray(treeData.htmlPages)
-		? treeData.htmlPages
-		: [];
-	const pagesTree = pagesList.concat(htmlPagesList);
-	const componentsTree = Array.isArray(treeData.components)
-		? treeData.components
-		: [];
-
-	const flatPages = flattenTree(Array.isArray(pagesTree) ? pagesTree : []);
-	const flatComponents = flattenTree(
-		Array.isArray(componentsTree) ? componentsTree : []
-	);
-
-	const selectedEntry = selectedEntryId
-		? manifestById.get(selectedEntryId) ?? null
-		: null;
-	const actionEntry = actionEntryId
-		? manifestById.get(actionEntryId) ?? null
-		: null;
-	const activeEntry = selectedEntry ?? actionEntry;
-
-	const selectedEntryPath = selectedEntry?.sourcePath;
-
-	const handleRename = async () => {
-		if (!activeEntry) return;
-		const nextName = renameValue.trim();
-		if (!nextName) {
-			toast({
-				variant: "destructive",
-				title: "ファイル名を入力してください",
-			});
-			return;
-		}
-		try {
-			const res = await apiRequest("POST", "/api/showcase/rename", {
-				path: activeEntry.sourcePath,
-				newName: nextName,
-			});
-			const payload = (await res.json()) as { newPath?: string };
-			setRenameOpen(false);
-			if (!selectedEntry) {
-				setActionEntryId(null);
-			}
-			await handleReload({ silent: true });
-			if (payload?.newPath) {
-				if (selectedEntry) {
-					setSelectedEntryId(payload.newPath);
-				} else {
-					setActionEntryId(payload.newPath);
-				}
-			}
-			toast({
-				variant: "success",
-				title: "ファイル名を変更しました",
-			});
-		} catch (error) {
-			toast({
-				variant: "destructive",
-				title: "リネームに失敗しました",
-				description:
-					error instanceof Error ? error.message : "操作に失敗しました。",
-			});
-		}
-	};
-
-	const handleDelete = async () => {
-		if (!activeEntry) return;
-		try {
-			await apiRequest("POST", "/api/showcase/delete", {
-				path: activeEntry.sourcePath,
-			});
-			setDeleteOpen(false);
-			if (selectedEntry) {
-				setSelectedEntryId(null);
-			} else {
-				setActionEntryId(null);
-			}
-			await handleReload({ silent: true });
-			toast({
-				variant: "success",
-				title: "ファイルを削除しました",
-			});
-		} catch (error) {
-			toast({
-				variant: "destructive",
-				title: "削除に失敗しました",
-				description:
-					error instanceof Error ? error.message : "操作に失敗しました。",
-			});
-		}
-	};
-
-	const handleCreateDirectory = async () => {
-		const trimmedName = createDirName.trim();
-		if (!trimmedName) {
-			toast({
-				variant: "destructive",
-				title: "ディレクトリ名を入力してください",
-			});
-			return;
-		}
-		try {
-			setCreatingDir(true);
-			await apiRequest("POST", "/api/showcase/directory", {
-				base: activeTab,
-				name: trimmedName,
-			});
-			setCreateDirOpen(false);
-			setCreateDirName("");
-			await handleReload({ silent: true });
-			toast({
-				variant: "success",
-				title: "ディレクトリを追加しました",
-			});
-		} catch (error) {
-			toast({
-				variant: "destructive",
-				title: "ディレクトリの追加に失敗しました",
-				description:
-					error instanceof Error ? error.message : "操作に失敗しました。",
-			});
-		} finally {
-			setCreatingDir(false);
-		}
-	};
-
-	const openRenameFor = (entryId: string) => {
-		const entry = manifestById.get(entryId) ?? null;
-		setActionEntryId(entryId);
-		setRenameValue(entry ? `${entry.name}.${entry.format}` : "");
-		setRenameOpen(true);
-	};
-
-	const openDeleteFor = (entryId: string) => {
-		setActionEntryId(entryId);
-		setDeleteOpen(true);
-	};
-
-	const handleMoveFile = async (sourcePath: string, targetDir: string) => {
-		const normalizedSource = sourcePath.replace(/\\/g, "/");
-		const normalizedTarget = targetDir.replace(/\\/g, "/");
-		const sourceDir = normalizedSource.split("/").slice(0, -1).join("/");
-		if (!normalizedSource || !normalizedTarget || sourceDir === normalizedTarget) {
-			return;
-		}
-
-		try {
-			const res = await apiRequest("POST", "/api/showcase/move", {
-				path: normalizedSource,
-				targetDir: normalizedTarget,
-			});
-			const payload = (await res.json()) as { newPath?: string };
-			await handleReload({ silent: true });
-			if (payload?.newPath) {
-				if (selectedEntryId === normalizedSource) {
-					setSelectedEntryId(payload.newPath);
-				}
-				if (actionEntryId === normalizedSource) {
-					setActionEntryId(payload.newPath);
-				}
-			}
-			toast({
-				variant: "success",
-				title: "ファイルを移動しました",
-			});
-		} catch (error) {
-			toast({
-				variant: "destructive",
-				title: "ファイルの移動に失敗しました",
-				description:
-					error instanceof Error ? error.message : "操作に失敗しました。",
-			});
-		}
-	};
 
 	const renderCardMenu = (entryId: string) => (
 		<DropdownMenu>
@@ -310,7 +105,7 @@ export default function Showcase() {
 					onSelect={(event) => {
 						event.preventDefault();
 						event.stopPropagation();
-						openRenameFor(entryId);
+						openRenameFor(entryId, manifestById.get(entryId) ?? null);
 					}}
 				>
 					<Pencil className="h-4 w-4" />
@@ -332,146 +127,12 @@ export default function Showcase() {
 		</DropdownMenu>
 	);
 
-	const renameDialog = (
-		<Dialog
-			open={renameOpen}
-			onOpenChange={(open) => {
-				setRenameOpen(open);
-				if (!open && !selectedEntry) {
-					setActionEntryId(null);
-				}
-			}}
-		>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>ファイル名の変更</DialogTitle>
-					<DialogDescription>
-						新しいファイル名を入力してください。
-					</DialogDescription>
-				</DialogHeader>
-				<form
-					className="grid gap-2 py-2"
-					onSubmit={(event) => {
-						event.preventDefault();
-						handleRename();
-					}}
-				>
-					<div className="grid gap-2">
-						<Label htmlFor="rename-input">新しいファイル名</Label>
-						<Input
-							id="rename-input"
-							value={renameValue}
-							onChange={(event) => setRenameValue(event.target.value)}
-							autoFocus
-						/>
-					</div>
-					<DialogFooter>
-						<Button
-							type="button"
-							variant="outline"
-							onClick={() => setRenameOpen(false)}
-						>
-							キャンセル
-						</Button>
-						<Button type="submit" disabled={!renameValue.trim()}>
-							変更する
-						</Button>
-					</DialogFooter>
-				</form>
-			</DialogContent>
-		</Dialog>
-	);
-
-	const deleteDialog = (
-		<AlertDialog
-			open={deleteOpen}
-			onOpenChange={(open) => {
-				setDeleteOpen(open);
-				if (!open && !selectedEntry) {
-					setActionEntryId(null);
-				}
-			}}
-		>
-			<AlertDialogContent>
-				<AlertDialogHeader>
-					<AlertDialogTitle>ファイルを削除しますか？</AlertDialogTitle>
-					<AlertDialogDescription>
-						この操作は取り消せません。
-					</AlertDialogDescription>
-				</AlertDialogHeader>
-				<AlertDialogFooter>
-					<AlertDialogCancel>キャンセル</AlertDialogCancel>
-					<AlertDialogAction
-						onClick={handleDelete}
-						className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-					>
-						削除する
-					</AlertDialogAction>
-				</AlertDialogFooter>
-			</AlertDialogContent>
-		</AlertDialog>
-	);
-
-	const createDirectoryDialog = (
-		<Dialog
-			open={createDirOpen}
-			onOpenChange={(open) => {
-				setCreateDirOpen(open);
-				if (!open) {
-					setCreateDirName("");
-				}
-			}}
-		>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>ディレクトリ追加</DialogTitle>
-					<DialogDescription>
-						追加するディレクトリ名を入力してください。
-					</DialogDescription>
-				</DialogHeader>
-				<form
-					className="grid gap-2 py-2"
-					onSubmit={(event) => {
-						event.preventDefault();
-						handleCreateDirectory();
-					}}
-				>
-					<div className="grid gap-2">
-						<Label htmlFor="create-dir-input">ディレクトリ名</Label>
-						<Input
-							id="create-dir-input"
-							value={createDirName}
-							onChange={(event) => setCreateDirName(event.target.value)}
-							placeholder="new-folder"
-							autoFocus
-						/>
-					</div>
-					<DialogFooter>
-						<Button
-							type="button"
-							variant="outline"
-							onClick={() => setCreateDirOpen(false)}
-						>
-							キャンセル
-						</Button>
-						<Button
-							type="submit"
-							disabled={creatingDir || !createDirName.trim()}
-						>
-							追加する
-						</Button>
-					</DialogFooter>
-				</form>
-			</DialogContent>
-		</Dialog>
-	);
-
 	const entryActions = selectedEntry ? (
 		<div className="flex flex-wrap items-center gap-2">
 			<Button
 				size="sm"
 				variant="outline"
-				onClick={() => openRenameFor(selectedEntry.id)}
+				onClick={() => openRenameFor(selectedEntry.id, selectedEntry)}
 			>
 				<Pencil className="h-4 w-4 mr-2" />
 				名前を変更
@@ -522,54 +183,44 @@ export default function Showcase() {
 		);
 	};
 
-	if (selectedEntry) {
-		if (selectedEntry.kind === "page") {
-			return (
-				<div className="flex flex-col h-screen bg-background">
-					{renameDialog}
-					{deleteDialog}
-					<Header
-						onReload={handleReload}
-						isReloading={isReloading}
-						onHomeClick={() => setSelectedEntryId(null)}
-					/>
-					<PagePreview
-						name={selectedEntry.name}
-						path={selectedEntry.sourcePath}
-						onBack={() => setSelectedEntryId(null)}
-						content={renderPreviewContent()}
-						contentClassName="w-full max-w-none p-6"
-						actions={entryActions}
-					/>
-				</div>
-			);
-		}
+	const showcaseDialogs = (
+		<ShowcaseDialogs
+			createDirName={createDirName}
+			createDirOpen={createDirOpen}
+			creatingDir={creatingDir}
+			deleteOpen={deleteOpen}
+			hasSelectedEntry={Boolean(selectedEntry)}
+			onCreateDirNameChange={setCreateDirName}
+			onCreateDirectory={handleCreateDirectory}
+			onCreateDirOpenChange={setCreateDirOpen}
+			onDelete={handleDelete}
+			onDeleteOpenChange={setDeleteOpen}
+			onRename={handleRename}
+			onRenameOpenChange={setRenameOpen}
+			onRenameValueChange={setRenameValue}
+			onResetActionEntry={() => setActionEntryId(null)}
+			renameOpen={renameOpen}
+			renameValue={renameValue}
+		/>
+	);
 
+	if (selectedEntry) {
 		return (
-			<div className="flex flex-col h-screen bg-background">
-				{renameDialog}
-				{deleteDialog}
-				<Header
-					onReload={handleReload}
-					isReloading={isReloading}
-					onHomeClick={() => setSelectedEntryId(null)}
-				/>
-				<ComponentPreview
-					name={selectedEntry.name}
-					path={selectedEntry.sourcePath}
-					onBack={() => setSelectedEntryId(null)}
-					component={renderPreviewContent()}
-					actions={entryActions}
-				/>
-			</div>
+			<ShowcaseDetailView
+				dialogs={showcaseDialogs}
+				entry={selectedEntry}
+				isReloading={isReloading}
+				onBack={() => setSelectedEntryId(null)}
+				onReload={handleReload}
+				previewContent={renderPreviewContent()}
+				actions={entryActions}
+			/>
 		);
 	}
 
 	return (
 		<div className="flex flex-col h-screen bg-background">
-			{renameDialog}
-			{deleteDialog}
-			{createDirectoryDialog}
+			{showcaseDialogs}
 			<Header
 				onReload={handleReload}
 				isReloading={isReloading}
@@ -603,7 +254,7 @@ export default function Showcase() {
 										selectedPath={selectedEntryPath}
 										onSelect={(item) => setSelectedEntryId(item.id)}
 										onMove={handleMoveFile}
-										rootPath="showcase/pages"
+										rootPath={PAGES_ROOT_PATH}
 									/>
 								) : (
 									<div className="p-4 text-sm text-muted-foreground text-center">
@@ -618,7 +269,7 @@ export default function Showcase() {
 								selectedPath={selectedEntryPath}
 								onSelect={(item) => setSelectedEntryId(item.id)}
 								onMove={handleMoveFile}
-								rootPath="showcase/components"
+								rootPath={COMPONENTS_ROOT_PATH}
 							/>
 						) : (
 							<div className="p-4 text-sm text-muted-foreground text-center">
